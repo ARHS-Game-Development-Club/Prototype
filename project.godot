@@ -14,6 +14,19 @@ config/name="Prototype"
 run/main_scene="res://Scene1.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=480
+window/size/height=270
+window/size/fullscreen=true
+window/size/test_width=1920
+window/size/test_height=1080
+window/stretch/mode="viewport"
+
+[global]
+
+render=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
@@ -24,4 +37,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+environment/default_clear_color=Color( 0.14902, 0.145098, 0.145098, 1 )
 environment/default_environment="res://default_env.tres"
