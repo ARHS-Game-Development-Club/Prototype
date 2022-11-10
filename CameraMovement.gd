@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 	cam.position = lerp(pos_old, pos_new, step);
 	
 
-# previously: (ctrl + k to undo comments) (I had to delete and redo this because fuck man that's hard to read)
+# previously: (ctrl + k to undo comments) (I had to delete and redo this because man that's hard to read)
 #if !camera_moving && character:
 #		var charPosX = character.position.x
 #		var charPosY = character.position.y
