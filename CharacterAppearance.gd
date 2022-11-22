@@ -12,8 +12,8 @@ func _ready():
 	pass # Replace with function body.
 func _process(_delta: float) -> void:
 	var input_vector := Vector2(
-		float(Input.is_action_pressed("ui_right")) - float(Input.is_action_pressed("ui_left")),
-		float(Input.is_action_pressed("ui_down")) - float(Input.is_action_pressed("ui_up"))
+		float(Input.is_action_pressed("move_right")) - float(Input.is_action_pressed("move_left")),
+		float(Input.is_action_pressed("move_down")) - float(Input.is_action_pressed("move_up"))
 	)
 	if input_vector.length() > 0.0 and input_vector != look_direction:
 		look_direction = input_vector
