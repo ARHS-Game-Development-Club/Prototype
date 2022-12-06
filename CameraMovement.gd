@@ -2,14 +2,14 @@ extends Node2D
 
 # cam's pivot point is the top left btw
 
-onready var character := get_node("KinematicBody2D")
-onready var cam := get_node("Camera2D")
+onready var character := get_parent().get_node("Player")
+onready var cam := get_parent().get_node("Camera2D")
 var pos_cursor = Vector2.ZERO;
 # cam's dimensions. divide by 2 2 get halfway point
-var camLength_x = 480;
-var camLength_y = 270;
+export var camLength_x = 480;
+export var camLength_y = 270;
 # current room the player is in. start room at 0,0
-var player_currentRoom = [0, 0];
+export var player_currentRoom = [0, 0];
 # the cam's intreprelolation speed
 const lerp_m = 3;
 # M stands for multiplier btw. parallax is when the rendering is affected sligtly by changes in the position of 
