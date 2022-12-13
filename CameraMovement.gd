@@ -23,10 +23,17 @@ const parallax_cursor_m = .1;
 func _ready():
 	pass;
 # Update()
+func unpause():
+	$PauseScreen.hide()
+	get_tree().paused = false
+	
 func _process(_delta: float) -> void:
 	# quit hotkey for exiting the window quickly (PRESS DEL)
 	if (Input.is_action_just_pressed("QUIT")):
-		get_tree().quit();
+		get_tree().paused = true
+		$PauseScreen.show()
+	
+		
 	# feel free to move these 2 things to another script
 	pos_cursor = get_viewport().get_mouse_position();
 	# calculates player's room
