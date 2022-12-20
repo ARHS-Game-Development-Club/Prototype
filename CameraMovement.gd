@@ -1,7 +1,6 @@
 extends Node2D
 
 # cam's pivot point is the top left btw
-
 onready var character := get_node("KinematicBody2D")
 onready var cam := get_node("Camera2D")
 var pos_cursor = Vector2.ZERO;
