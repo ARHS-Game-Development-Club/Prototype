@@ -6,11 +6,15 @@ extends Sprite
 # var b = "text"
 
 var look_direction := Vector2.RIGHT
+var player;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	player = get_parent();
+	
 func _process(_delta: float) -> void:
+	if (player.ded):
+		return;
 	var input_vector := Vector2(
 		float(Input.is_action_pressed("move_right")) - float(Input.is_action_pressed("move_left")),
 		float(Input.is_action_pressed("move_down")) - float(Input.is_action_pressed("move_up"))
