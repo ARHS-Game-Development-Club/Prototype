@@ -69,6 +69,7 @@ func _process(delta: float):
 	sprite.modulate = lerp(sprite.modulate, player.color_normal, delta * 3);
 	
 func OnBodyEnter(body: Node):
+	print("hello")
 	if (body == player):
 		# collided with the player
 		body.Damage(base_damage, self);
