@@ -137,26 +137,31 @@ func generate_door(room, door_x, door_y, door_width, direction_key):
 	return room
 
 
+# Returns true if both doors go in the opposite direction.
+func opposite_doors(door_a, door_b):
+	return door_a.direction_out[0] + door_b.direction_out[0] == 0 \
+			and door_a.direction_out[1] + door_b.direction_out[1] == 0
+
+
 # Uses the position and width of the door defined in the room variant
 func add_door(room_map, door, room_x, room_y):
 	# Add a door to current room...
 	var curr_room = room_map[room_y][room_x]
 	var direction_key = get_direction_key(door)
+
 	room_map[room_y][room_x] = generate_door(curr_room, door.x, door.y, 
 			door.width, direction_key)
 
 	# ...and the neighboring room we want to connect.
-	var neighbor_room = room_map[room_y + door.direction_out[1]] \
-			[room_x + door.direction_out[0]]
+	var neighbor_row = room_y + door.direction_out[1]
+	var neighbor_col = room_x + door.direction_out[0]
+	var neighbor_room = room_map[neighbor_row][neighbor_col]
 	for neighbor_door in neighbor_room.doors:
-		if neighbor_door.direction_out[0] + door.direction_out[0] == 0 \
-				and neighbor_door.direction_out[1] \
-				+ door.direction_out[1] == 0:
+		if opposite_doors(neighbor_door, door):
 			direction_key = get_direction_key(neighbor_door)
-			room_map[room_y + door.direction_out[1]] \
-					[room_x + door.direction_out[0]] = generate_door(
-						neighbor_room, neighbor_door.x, neighbor_door.y,
-						neighbor_door.width, direction_key
+			room_map[neighbor_row][neighbor_col] = generate_door(
+					neighbor_room, neighbor_door.x, neighbor_door.y,
+					neighbor_door.width, direction_key
 			)
 
 	return room_map
@@ -225,10 +230,6 @@ func _ready():
 
 	# Holds RoomLayout types
 	var room_map = new_grid(ROOM_MAP_WIDTH, ROOM_MAP_HEIGHT)
-	# Holds actual grid of tiles
-	var grid = new_grid(ROOM_MAP_WIDTH * ROOM_WIDTH, 
-			ROOM_MAP_HEIGHT * ROOM_HEIGHT)
-
 	var starter_room_result = add_starter_room(room_map)
 	room_map = starter_room_result[0]
 	var grid_origin_x = starter_room_result[1]
@@ -239,8 +240,10 @@ func _ready():
 			floor(ROOM_MAP_HEIGHT / 2.0),
 			1
 	)
-	print_room_map(room_map)
+	# print_room_map(room_map)
 
 	# Holds actual grid of tiles
+	var grid = new_grid(ROOM_MAP_WIDTH * ROOM_WIDTH, 
+			ROOM_MAP_HEIGHT * ROOM_HEIGHT)
 	grid = create_tile_grid(room_map, grid)
 	draw_tile_grid(grid, grid_origin_x, grid_origin_y)
