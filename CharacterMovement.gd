@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 var sprite: Sprite;
 export var speed := 150
+export var dashSpeed := 450
 var maxHp = 100;
 var hp;
 var ded = false;
@@ -30,13 +31,22 @@ func _physics_process(delta: float) -> void:
 		return;
 	# not dead
 	var input_vector := Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	)
 	var move_direction = input_vector.normalized()
 	move_and_slide(speed*move_direction)
+	if Input.is_action_just_pressed("dash"):
+		move_and_slide(move_direction*1500)
+	else:
+		move_and_slide(speed*move_direction)
+		
+	if Input.is_action_pressed("left_click"):
+		$Weapon.play("Attack")
+	else:
+		$Weapon.play("Idle")
 
-# sender is of type Node, can be Player node. invinciility happens after entity gets attacked, can be overriden
+# sender is of type Node, can be Player node. invincibility happens after entity gets attacked, can be overriden
 func Damage(dmg: float, sender = null, overrideInvincibility = false):
 	if (damage_timer > 0 && !overrideInvincibility):
 		return;
@@ -52,3 +62,5 @@ func Die():
 	sprite.modulate = color_red;
 	# TODO: respawn stuff here
 	print("PLAYER DIED");
+
+		

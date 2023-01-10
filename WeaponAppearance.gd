@@ -1,4 +1,4 @@
-extends Sprite
+extends AnimatedSprite
 
 
 # Declare member variables here. Examples:
@@ -14,13 +14,13 @@ func _process(_delta: float) -> void:
 	if (player.ded):
 		return;
 	var input_vector := Vector2(
-		float(Input.is_action_pressed("ui_right")) - float(Input.is_action_pressed("ui_left")),
-		float(Input.is_action_pressed("ui_down")) - float(Input.is_action_pressed("ui_up"))
+		float(Input.is_action_pressed("move_right")) - float(Input.is_action_pressed("move_left")),
+		float(Input.is_action_pressed("move_down")) - float(Input.is_action_pressed("move_up"))
 	)
 	if input_vector.length() > 0.0 and input_vector != look_direction:
 		look_direction = input_vector
 		flip_h = sign(look_direction.x) == -1.0
-		position = Vector2(look_direction.x*3, 4)
+		position = Vector2(look_direction.x*8, 4)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
