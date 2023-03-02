@@ -19,5 +19,5 @@ func on_button_pressed(scene_to_load):
 		
 	get_tree().paused = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	rect_position = get_parent().get_node("Camera2D").position;
