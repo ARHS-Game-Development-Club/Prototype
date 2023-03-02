@@ -24,14 +24,15 @@ func _ready():
 	pass;
 # Update()
 func unpause():
-	$PauseScreen.hide()
+	# referenced in pausescreen.gd
+	get_parent().get_node("PauseScreen").hide()
 	get_tree().paused = false
 	
 func _process(_delta: float) -> void:
 	# quit hotkey for exiting the window quickly (PRESS DEL)
 	if (Input.is_action_just_pressed("QUIT")):
 		get_tree().paused = true
-		$PauseScreen.show()
+		get_parent().get_node("PauseScreen").show()
 	
 		
 	# feel free to move these 2 things to another script
