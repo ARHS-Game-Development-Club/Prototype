@@ -17,6 +17,6 @@ func on_button_pressed(scene_to_load):
 		get_tree().change_scene(scene_load)
 		
 	get_tree().paused = false
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# update function
+func _process(delta):
+	pass
